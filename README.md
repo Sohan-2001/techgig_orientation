@@ -7,7 +7,7 @@
 A fully responsive, mobile-first, browser-based web application that dynamically changes its interface based on the orientation of the user’s mobile device.
 
 Developed for the **TechGig "Prompt This Into Existence!" Hackathon 2025**.  
-By: **[Your Name]**
+By: **[Sohan Karfa]**
 
 ---
 
