@@ -1,34 +1,59 @@
+
 "use client";
 
 import { useState, useEffect, type FC } from 'react';
 import { Wind } from 'lucide-react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { getWeatherInfo, type WeatherData, type GeoData } from '@/lib/weather.tsx';
 import { useToast } from '@/hooks/use-toast';
+
+interface WeatherData {
+  location: {
+    name: string;
+    region: string;
+  };
+  current: {
+    temp_c: number;
+    condition: {
+      text: string;
+      icon: string;
+    };
+    wind_kph: number;
+  };
+}
 
 const Weather: FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [geoData, setGeoData] = useState<GeoData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
     const fetchWeather = (lat: number, lon: number) => {
-      Promise.all([
-        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=celsius&wind_speed_unit=kmh`),
-        fetch(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lon}`)
-      ])
-      .then(async ([weatherRes, geoRes]) => {
-        if (!weatherRes.ok || !geoRes.ok) {
-          throw new Error('Failed to fetch weather or location data');
+      const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
+      if (!apiKey) {
+        setError('Weather API key is not configured.');
+        setLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Configuration Error",
+          description: "Weather API key is missing.",
+        });
+        return;
+      }
+
+      fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}`)
+      .then(async (res) => {
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error.message || 'Failed to fetch weather data');
         }
-        const weatherJson = await weatherRes.json();
-        const geoJson = await geoRes.json();
-        setWeatherData(weatherJson);
-        setGeoData(geoJson);
+        return res.json();
+      })
+      .then((data) => {
+        setWeatherData(data);
       })
       .catch((e) => {
         setError(e.message || 'An unknown error occurred.');
@@ -78,7 +103,7 @@ const Weather: FC = () => {
     );
   }
 
-  if (error || !weatherData || !geoData) {
+  if (error || !weatherData) {
     return (
       <Card>
         <CardHeader>
@@ -94,8 +119,7 @@ const Weather: FC = () => {
     );
   }
 
-  const { icon, description } = getWeatherInfo(weatherData.current.weather_code);
-  const locationName = geoData.address.city || geoData.address.town || geoData.address.village || 'Current Location';
+  const { location, current } = weatherData;
 
   return (
     <Card className="w-full">
@@ -104,14 +128,14 @@ const Weather: FC = () => {
         <Wind className="h-6 w-6 text-muted-foreground" />
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center space-y-2 text-center pt-6">
-        <div className="text-primary">{icon}</div>
+        <Image src={`https:${current.condition.icon}`} alt={current.condition.text} width={96} height={96} />
         <p className="text-7xl font-bold tracking-tighter">
-          {Math.round(weatherData.current.temperature_2m)}°C
+          {Math.round(current.temp_c)}°C
         </p>
-        <p className="text-xl text-muted-foreground">{description}</p>
-        <p className="text-lg font-medium">{locationName}</p>
+        <p className="text-xl text-muted-foreground">{current.condition.text}</p>
+        <p className="text-lg font-medium">{location.name}, {location.region}</p>
         <p className="text-sm text-muted-foreground">
-          Wind: {weatherData.current.wind_speed_10m} km/h
+          Wind: {current.wind_kph} km/h
         </p>
       </CardContent>
     </Card>

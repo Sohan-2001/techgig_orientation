@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState, useEffect, type FC } from 'react';
+import { useState, useEffect, useRef, type FC } from 'react';
 import { AlarmClockIcon, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,6 +28,7 @@ const AlarmClock: FC = () => {
   const [alarms, setAlarms] = useState<Alarm[]>([]);
   const [newAlarmTime, setNewAlarmTime] = useState('');
   const [ringingAlarm, setRingingAlarm] = useState<Alarm | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     try {
@@ -53,16 +55,16 @@ const AlarmClock: FC = () => {
       const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
       
       alarms.forEach(alarm => {
-        if (alarm.isActive && alarm.time === currentTime) {
+        if (alarm.isActive && alarm.time === currentTime && !ringingAlarm) {
           setRingingAlarm(alarm);
-          // Optional: Auto-disable alarm after it rings
-          toggleAlarm(alarm.id);
+          audioRef.current?.play();
+          toggleAlarm(alarm.id, false); // Disable alarm after it rings
         }
       });
     }, 1000); // Check every second
 
     return () => clearInterval(interval);
-  }, [alarms]);
+  }, [alarms, ringingAlarm]);
 
   const addAlarm = () => {
     if (newAlarmTime && !alarms.some(a => a.time === newAlarmTime)) {
@@ -80,13 +82,19 @@ const AlarmClock: FC = () => {
     setAlarms(alarms.filter(alarm => alarm.id !== id));
   };
 
-  const toggleAlarm = (id: string) => {
+  const toggleAlarm = (id: string, newIsActive?: boolean) => {
     setAlarms(
       alarms.map(alarm =>
-        alarm.id === id ? { ...alarm, isActive: !alarm.isActive } : alarm
+        alarm.id === id ? { ...alarm, isActive: newIsActive ?? !alarm.isActive } : alarm
       )
     );
   };
+
+  const stopAlarm = () => {
+    audioRef.current?.pause();
+    if(audioRef.current) audioRef.current.currentTime = 0;
+    setRingingAlarm(null);
+  }
 
   return (
     <Card className="w-full">
@@ -95,6 +103,7 @@ const AlarmClock: FC = () => {
         <AlarmClockIcon className="h-6 w-6 text-muted-foreground" />
       </CardHeader>
       <CardContent>
+        <audio ref={audioRef} src="https://37raclmdomf9i6a3.public.blob.vercel-storage.com/morning_flower.mp3" loop />
         <div className="flex w-full items-center space-x-2 mb-4">
           <Input
             type="time"
@@ -131,7 +140,7 @@ const AlarmClock: FC = () => {
           </div>
         </ScrollArea>
 
-        <AlertDialog open={!!ringingAlarm} onOpenChange={() => setRingingAlarm(null)}>
+        <AlertDialog open={!!ringingAlarm} onOpenChange={(open) => !open && stopAlarm()}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Alarm!</AlertDialogTitle>
@@ -140,7 +149,7 @@ const AlarmClock: FC = () => {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogAction onClick={() => setRingingAlarm(null)}>Dismiss</AlertDialogAction>
+              <AlertDialogAction onClick={stopAlarm}>Dismiss</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
