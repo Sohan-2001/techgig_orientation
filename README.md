@@ -1,70 +1,168 @@
-# Orientime
+# 📱 Prompt This Into Existence! – Mobile Orientation Web App
 
-This is a Next.js starter project built in Firebase Studio. It's an orientation-aware application that presents different time-based tools depending on how you hold your device.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Status: Completed](https://img.shields.io/badge/Status-Completed-brightgreen)]()
+[![Built With AI](https://img.shields.io/badge/Built%20With-AI-blueviolet)]()
 
-## Hackathon Evaluation
+A fully responsive, mobile-first, browser-based web application that dynamically changes its interface based on the orientation of the user’s mobile device.
 
-Here's how Orientime addresses the evaluation criteria for the hackathon.
+Developed for the **TechGig "Prompt This Into Existence!" Hackathon 2025**.  
+By: **[Your Name]**
 
-### 1. Functionality
+---
 
-The application's core concept is to provide different utilities based on the device's screen orientation. This functionality is robust and works as expected across various mobile device states.
+## 📋 Table of Contents
 
--   **Orientation-based Controllers:** Yes, all features work reliably as the orientation changes. The app uses a custom React hook (`useOrientation`) to listen for `screen.orientation` changes and dynamically renders the appropriate component:
-    -   **Portrait (upright):** Alarm Clock
-    -   **Landscape (right-side up):** Stopwatch
-    -   **Portrait (upside down):** Timer
-    -   **Landscape (left-side up):** Weather
--   **Feature Completeness:** All core features are fully implemented:
-    -   **Alarm:** Users can add multiple alarms, toggle them on/off, delete them, and are alerted with an audio notification when an alarm time is reached. Alarms persist in `localStorage`.
-    -   **Stopwatch:** Includes start, pause, reset, and lap functionality. Laps are displayed in a scrollable list.
-    -   **Timer:** Users can set a countdown duration, start, pause, and reset the timer. A progress bar visually represents the time remaining.
-    -   **Weather:** Automatically fetches and displays local weather data based on the user's geolocation, complete with caching to reduce API calls and improve load times.
+- [🌐 Live Demo](#-live-demo)
+- [🎯 Features](#-features)
+- [🛠️ Technologies Used](#-technologies-used)
+- [💡 AI Tools & Prompting](#-ai-tools--prompting)
+- [🚀 Installation](#-installation)
+- [📸 Screenshots](#-screenshots)
+- [🎥 Demo Video](#-demo-video)
+- [📝 Learning & Improvements](#-learning--improvements)
+- [💡 Future Enhancements](#-future-enhancements)
+- [🏆 Hackathon Entry](#-hackathon-entry)
+- [👥 Contributors](#-contributors)
+- [📞 Contact](#-contact)
+- [📄 License](#-license)
 
-### 2. User Experience (UX)
+---
 
-The UX is designed to be intuitive, clean, and delightful, adhering to modern design principles.
+## 🌐 Live Demo
 
--   **Intuitiveness:** The interface is straightforward. A welcome screen clearly explains the app's unique, orientation-based navigation. Each feature is presented as a single-purpose, full-screen "card," making it easy to understand and use.
--   **Responsiveness:** The app is built with a mobile-first approach. Layouts adapt seamlessly to portrait and landscape orientations, ensuring all content is legible and interactive elements are easily accessible.
--   **Visual Appeal:** The design uses the **ShadCN** component library and **Tailwind CSS**, following the specified style guidelines (Sky Blue primary, Light Gray background, Orange accent). The result is a clean, aesthetically pleasing interface with a professional feel.
--   **Feedback & Interaction:** The app provides clear feedback.
-    -   Buttons and controls have clear states (e.g., disabled, active).
-    -   Smooth, subtle animations (`fade-in`, `zoom-in`) on orientation changes make transitions feel polished.
-    -   The app uses toasts for errors (e.g., location permission denied) and dialogs for critical alerts (like an alarm ringing).
+👉 [Click Here to View the Live App](https://your-deployed-url.vercel.app)
 
-### 3. AI Prompting & Development Process
+Best viewed on mobile devices.  
+Rotate your device to experience dynamic features!
 
-This project was developed in partnership with an AI assistant, which significantly accelerated the development process. The collaboration focused on clear, iterative prompting to build, refine, and debug the application.
+---
 
--   **Efficiency & Effectiveness:** The AI was used for a wide range of tasks, from initial scaffolding to complex logic and bug fixing. This was highly efficient, turning high-level feature requests into complete, working code with minimal manual intervention. For example, requests like "create a stopwatch component" or "add caching to the weather feature" were handled in a single turn.
--   **Prompting Techniques:**
-    -   **Instruction-Based Prompting:** Simple, direct commands were used for initial feature creation and modifications (e.g., "Create a .env file and add the API key").
-    -   **Contextual Refinement:** The AI was given context about the existing code and project requirements to make intelligent modifications. For instance, when asked to fix a bug, I provided the exact error message from Next.js, which the AI used to identify the root cause (JSX in a `.ts` file) and implement the correct fix.
-    -   **High-Level Abstraction:** Instead of writing code line-by-line, I made high-level requests based on user stories (e.g., "Use local caching to load the components faster"), which the AI translated into a complete technical implementation.
+## 🎯 Features
 
-### 4. Technical Implementation
+| Orientation | Feature |
+|-------------|---------|
+| Portrait (Upright) | ⏰ Alarm Clock |
+| Landscape (Right-side up) | ⏱️ Stopwatch |
+| Portrait (Upside down) | ⏳ Countdown Timer |
+| Landscape (Upside down) | 🌤️ Weather of the Day (powered by Weather API) |
 
-The project is built on a modern, robust tech stack and follows best practices for web development.
+- Mobile-first, touch-friendly design
+- Seamless orientation transitions
+- Pure browser experience (no native app)
+- Works on Android and iOS
+- Simple, intuitive UI
 
--   **Code Quality:** The code is clean, readable, and organized into logical components. It uses **TypeScript** for type safety and modern React features like functional components and hooks (`useState`, `useEffect`, `useRef`).
--   **Efficiency:** The app is performant.
-    -   It uses Next.js with the App Router for efficient page loads.
-    -   Client-side rendering is used judiciously (`"use client"`), and server components are preferred by default.
-    -   The weather component implements caching via `localStorage` to minimize API requests and provide an instant-loading experience for repeat users.
--   **Best Practices:**
-    -   **Next.js:** Follows App Router conventions.
-    -   **React:** Utilizes hooks for state management and side effects, avoiding class components.
-    -   **TypeScript:** All components and hooks are strongly typed.
-    -   **Environment Variables:** API keys are stored securely in a `.env` file and not exposed on the client side where not needed.
--   **Documentation:** While the code is largely self-documenting due to its clarity, this `README` serves as comprehensive project documentation, explaining the architecture and design choices.
+---
 
-### 5. Wow! Factor
+## 🛠️ Technologies Used
 
-The project includes several features and polished details that go beyond a basic implementation.
+- HTML5, CSS3, JavaScript (Vanilla JS)
+- DeviceOrientation API
+- Weather API (Free Tier) → [WeatherAPI.com](https://www.weatherapi.com/) or OpenWeatherMap
+- AI-assisted development via Firebase Studio, ChatGPT, Gemini Pro
+- Deployed on [Vercel](https://vercel.com)
 
--   **Creative Core Concept:** The primary navigation method—changing device orientation—is itself a unique and innovative take on user interaction for a mobile web app.
--   **Polished Micro-interactions:** Smooth, non-jarring animations on orientation changes and subtle UI feedback make the app feel alive and delightful to use.
--   **Persistence:** The app remembers the user's alarms between sessions by using `localStorage`, adding a layer of practical usefulness.
--   **Intelligent Caching:** The weather feature not only caches data but also ties the cache to the user's location. It will only use cached data if the user is in the same approximate location as when the data was last fetched, ensuring relevance.
--   **Zero-Config Welcome:** The welcome screen elegantly onboards the user to the app's unconventional navigation, ensuring they understand how to use it from the very first launch.
+---
+
+## 💡 AI Tools & Prompting
+
+### Tools:
+- ChatGPT (OpenAI GPT-4o)
+- Gemini Pro (Google)
+- Firebase Studio (for code generation)
+
+### Prompting Techniques:
+- Step-by-step breakdowns
+- Chain-of-thought prompting
+- Regeneration + fine-tuning
+- Documented all working + failed prompts (`prompts.md` file)
+
+👉 See detailed logs here → [`prompts.md`](./prompts.md)
+
+---
+
+## 🚀 Installation
+
+```bash
+git clone https://github.com/your-username/prompt-orientation-app.git
+cd prompt-orientation-app
+npm install
+npm run dev
+```
+
+Or simply open `index.html` in a modern browser for static testing.
+
+---
+
+## 🎥 Demo Video
+
+👉 [Watch Full Demo Video (2 mins)]
+
+> [(Add your real hosted video link here)](https://sxldi6vsg8pc7vjq.public.blob.vercel-storage.com/Recording%202025-08-04%20031907.mp4)
+
+---
+
+## 📝 Learning & Improvements
+
+- First project using DeviceOrientation API
+- Understood limits of Chrome emulator for 180° upside-down testing
+- Designed custom dev-only tool to simulate orientations
+- Refined AI prompts to improve accuracy + reduce hallucination
+- Built fully responsive app using mobile-first design approach
+
+---
+
+## 💡 Future Enhancements
+
+- Dark mode / Light mode toggle
+- Vibration feedback on orientation change
+- Support for older browsers
+- Convert to Progressive Web App (PWA) for offline usage
+- Add theme customization for accessibility
+
+---
+
+## 🏆 Hackathon Entry
+
+This project was submitted to the **TechGig "Prompt This Into Existence!" Hackathon**.  
+Category: **AI-powered Web Application Development**
+
+---
+
+## 👥 Contributors
+
+| Name | Role |
+|------|------|
+| Sohan Karfa | Developer, Designer, Prompt Engineer |
+
+(You can add others if applicable)
+
+---
+
+## 📞 Contact
+
+**Sohan Karfa**  
+📧 Email: sohan100karfa@gmail.com 
+💼 LinkedIn: [[httpsfa//www.linkedin.com/in/yourprofile](https://www.linkedin.com/in/yourprofile)](https://www.linkedin.com/in/sohan-karfa-72819521b/)  
+💻 GitHub:[ [https://github.com/your-username](https://github.com/your-username)](https://github.com/sohan-2001)
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🎞️ Bonus: Optional Demo GIF
+
+> You can optionally add a short looping GIF of your app demo for extra visual appeal.
+
+```markdown
+![Demo](demo/demo.gif)
+```
+
+> (Place your demo gif in `/demo` folder)
+
+---
