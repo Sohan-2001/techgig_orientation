@@ -18,7 +18,6 @@ By: **[Sohan Karfa]**
 - [🛠️ Technologies Used](#-technologies-used)
 - [💡 AI Tools & Prompting](#-ai-tools--prompting)
 - [🚀 Installation](#-installation)
-- [📸 Screenshots](#-screenshots)
 - [🎥 Demo Video](#-demo-video)
 - [📝 Learning & Improvements](#-learning--improvements)
 - [💡 Future Enhancements](#-future-enhancements)
