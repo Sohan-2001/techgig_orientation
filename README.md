@@ -1,87 +1,72 @@
-# 📱 Prompt This Into Existence! – Mobile Orientation Web App
+# 📱 Prompt Orientation App
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status: Completed](https://img.shields.io/badge/Status-Completed-brightgreen)]()
-[![Built With AI](https://img.shields.io/badge/Built%20With-AI-blueviolet)]()
-
-A fully responsive, mobile-first, browser-based web application that dynamically changes its interface based on the orientation of the user’s mobile device.
-
-Developed for the **TechGig "Prompt This Into Existence!" Hackathon 2025**.  
-By: **[Sohan Karfa]**
+> A mobile-first web application that dynamically responds to device orientation to display: Alarm Clock (Portrait), Stopwatch (Landscape), Timer (Upside-Down), and Weather of the Day. Built for the **"Prompt This Into Existence!" Hackathon**.
 
 ---
 
-## 📋 Table of Contents
+## 🔗 Live Demo
 
-- [🌐 Live Demo](#-live-demo)
-- [🎯 Features](#-features)
-- [🛠️ Technologies Used](#-technologies-used)
-- [💡 AI Tools & Prompting](#-ai-tools--prompting)
-- [🚀 Installation](#-installation)
-- [🎥 Demo Video](#-demo-video)
-- [📝 Learning & Improvements](#-learning--improvements)
-- [💡 Future Enhancements](#-future-enhancements)
-- [🏆 Hackathon Entry](#-hackathon-entry)
-- [👥 Contributors](#-contributors)
-- [📞 Contact](#-contact)
-- [📄 License](#-license)
+🌐 techgig-orientation.vercel.app
 
 ---
 
-## 🌐 Live Demo
+## 🧠 About the Challenge
 
-👉 [Click Here to View the Live App](https://your-deployed-url.vercel.app)
+The task was to build a one-page, mobile-responsive app using AI-first development techniques that changes functionality based on how the user holds their device:
 
-Best viewed on mobile devices.  
-Rotate your device to experience dynamic features!
+* **Portrait (Upright)** → Alarm Clock ⏰
+* **Landscape (Right-side)** → Stopwatch ⏱️
+* **Portrait (Upside Down)** → Timer ⏳
+* **Landscape (Left-side)** → Weather of the Day 🌤️
 
----
-
-## 🎯 Features
-
-| Orientation | Feature |
-|-------------|---------|
-| Portrait (Upright) | ⏰ Alarm Clock |
-| Landscape (Right-side up) | ⏱️ Stopwatch |
-| Portrait (Upside down) | ⏳ Countdown Timer |
-| Landscape (Upside down) | 🌤️ Weather of the Day (powered by Weather API) |
-
-- Mobile-first, touch-friendly design
-- Seamless orientation transitions
-- Pure browser experience (no native app)
-- Works on Android and iOS
-- Simple, intuitive UI
+All features were to be implemented using in-browser JavaScript APIs, and the project had to run entirely on mobile browsers (no native app).
 
 ---
 
-## 🛠️ Technologies Used
+## 🧑‍💻 Developed By
 
-- HTML5, CSS3, JavaScript (Vanilla JS)
-- DeviceOrientation API
-- Weather API (Free Tier) → [WeatherAPI.com](https://www.weatherapi.com/) or OpenWeatherMap
-- AI-assisted development via Firebase Studio, ChatGPT, Gemini Pro
-- Deployed on [Vercel](https://vercel.com)
+**Sohan Karfa**
+
+---
+
+## ⚙️ Tech Stack
+
+* **Framework:** [Next.js](https://nextjs.org/)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **Hosting:** [Vercel](https://vercel.com/)
+* **AI Tool:** [Firebase Studio (AI-Powered)](https://firebase.google.com/)
+* **Weather API:** [Open-Meteo API](https://open-meteo.com/)
 
 ---
 
 ## 💡 AI Tools & Prompting
 
-### Tools:
-- ChatGPT (OpenAI GPT-4o)
-- Gemini Pro (Google)
-- Firebase Studio (for code generation)
+### Tools Used:
 
-### Prompting Techniques:
-- Step-by-step breakdowns
-- Chain-of-thought prompting
-- Regeneration + fine-tuning
-- Documented all working + failed prompts (`prompts.md` file)
+* **Firebase Studio** – used to generate the initial app UI and logic via instruction-based prompting.
+* **ChatGPT (GPT-4o)** – for logic fixes, responsive tweaks, API handling, and caching.
+* **Gemini Pro** – for script and visual planning of the short demo video.
 
-👉 See detailed logs here → [`prompts.md`](./prompts.md)
+### Prompting Technique:
+
+I followed a **goal-driven instruction-based prompting** approach:
+
+1. Initially provided the full Hackathon brief as a single prompt to Firebase Studio → Generated complete base app.
+2. Then used **iterative prompts** to:
+
+   * Add alarm functionality
+   * Integrate the Weather API
+   * Add caching for performance
+
+This step-by-step refinement offered speed, control, and high code quality.
 
 ---
 
 ## 🚀 Installation
+
+This project was originally built using **Firebase Studio**, pushed to GitHub, and deployed via **Vercel**.
+
+### 🔧 To run locally:
 
 ```bash
 git clone https://github.com/your-username/prompt-orientation-app.git
@@ -90,78 +75,68 @@ npm install
 npm run dev
 ```
 
-Or simply open `index.html` in a modern browser for static testing.
+> ⚠️ Requires a modern browser with support for `DeviceOrientationEvent`.
+
+### 🌐 View Live:
+
+[https://prompt-orientation-app.vercel.app](https://prompt-orientation-app.vercel.app)
 
 ---
 
-## 🎥 Demo Video
+## 📸 Screenshots
 
-👉 [Watch Full Demo Video (2 mins)]
-
-> [(Add your real hosted video link here)](https://sxldi6vsg8pc7vjq.public.blob.vercel-storage.com/Recording%202025-08-04%20031907.mp4)
-
----
-
-## 📝 Learning & Improvements
-
-- First project using DeviceOrientation API
-- Understood limits of Chrome emulator for 180° upside-down testing
-- Designed custom dev-only tool to simulate orientations
-- Refined AI prompts to improve accuracy + reduce hallucination
-- Built fully responsive app using mobile-first design approach
+| Orientation               | Feature        |
+| ------------------------- | -------------- |
+| 📱 Portrait (Upright)     | Alarm Clock UI |
+| 📱 Portrait (Upside Down) | Timer UI       |
+| 📱 Landscape (Right-side) | Stopwatch UI   |
+| 📱 Landscape (Left-side)  | Weather Info   |
 
 ---
 
-## 💡 Future Enhancements
-
-- Dark mode / Light mode toggle
-- Vibration feedback on orientation change
-- Support for older browsers
-- Convert to Progressive Web App (PWA) for offline usage
-- Add theme customization for accessibility
-
----
-
-## 🏆 Hackathon Entry
-
-This project was submitted to the **TechGig "Prompt This Into Existence!" Hackathon**.  
-Category: **AI-powered Web Application Development**
-
----
-
-## 👥 Contributors
-
-| Name | Role |
-|------|------|
-| Sohan Karfa | Developer, Designer, Prompt Engineer |
-
-(You can add others if applicable)
-
----
-
-## 📞 Contact
-
-**Sohan Karfa**  
-📧 Email: sohan100karfa@gmail.com 
-💼 LinkedIn: [[httpsfa//www.linkedin.com/in/yourprofile](https://www.linkedin.com/in/yourprofile)](https://www.linkedin.com/in/sohan-karfa-72819521b/)  
-💻 GitHub:[ [https://github.com/your-username](https://github.com/your-username)](https://github.com/sohan-2001)
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 🎞️ Bonus: Optional Demo GIF
-
-> You can optionally add a short looping GIF of your app demo for extra visual appeal.
-
-```markdown
-![Demo](demo/demo.gif)
+## 📁 Folder Structure
+```
+├── .idx/
+├── .next/
+├── docs/
+├── node_modules/
+├── src/
+│   ├── (your source files)
+├── .env.local
+├── .gitignore
+├── .modified
+├── apphosting.yaml
+├── components.json
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+├── tailwind.config.ts
+├── tsconfig.json
 ```
 
-> (Place your demo gif in `/demo` folder)
 
 ---
+
+## 📌 Demo Video
+
+## 📌 Demo Video
+A 2-minute demo video showcasing all orientation modes has been included in the submission.
+
+▶️ [Watch Demo Video](https://sxldi6vsg8pc7vjq.public.blob.vercel-storage.com/Recording%202025-08-04%20031907.mp4)
+
+---
+
+## 📜 License
+
+MIT © 2025 [Sohan Karfa](https://github.com/your-username)
+
+---
+
+## 🙌 Acknowledgements
+
+* Open-Meteo API for free weather data
+* Firebase Studio AI for instant scaffolding
+* ChatGPT and Gemini for coding, debugging, and storytelling assistance
