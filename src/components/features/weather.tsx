@@ -24,6 +24,17 @@ interface WeatherData {
   };
 }
 
+interface CachedWeatherData {
+  data: WeatherData;
+  timestamp: number;
+  coords: {
+    latitude: number;
+    longitude: number;
+  }
+}
+
+const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes
+
 const Weather: FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,8 +63,14 @@ const Weather: FC = () => {
         }
         return res.json();
       })
-      .then((data) => {
+      .then((data: WeatherData) => {
         setWeatherData(data);
+        const cache: CachedWeatherData = {
+          data,
+          timestamp: Date.now(),
+          coords: { latitude: lat, longitude: lon }
+        };
+        localStorage.setItem('weatherCache', JSON.stringify(cache));
       })
       .catch((e) => {
         setError(e.message || 'An unknown error occurred.');
@@ -66,11 +83,34 @@ const Weather: FC = () => {
       .finally(() => setLoading(false));
     };
 
+    const processLocation = (position: GeolocationPosition) => {
+      const { latitude, longitude } = position.coords;
+      
+      try {
+        const cachedItem = localStorage.getItem('weatherCache');
+        if (cachedItem) {
+          const cachedData: CachedWeatherData = JSON.parse(cachedItem);
+          const isCacheValid = (Date.now() - cachedData.timestamp) < CACHE_DURATION;
+          const isSameLocation = 
+            cachedData.coords.latitude.toFixed(4) === latitude.toFixed(4) &&
+            cachedData.coords.longitude.toFixed(4) === longitude.toFixed(4);
+
+          if (isCacheValid && isSameLocation) {
+            setWeatherData(cachedData.data);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch (e) {
+        console.error("Failed to read weather cache", e);
+      }
+
+      fetchWeather(latitude, longitude);
+    }
+    
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          fetchWeather(position.coords.latitude, position.coords.longitude);
-        },
+        processLocation,
         (err) => {
           setError(`Geolocation error: ${err.message}`);
           toast({
