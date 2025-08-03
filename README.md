@@ -35,7 +35,7 @@ All features were to be implemented using in-browser JavaScript APIs, and the pr
 * **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 * **Hosting:** [Vercel](https://vercel.com/)
 * **AI Tool:** [Firebase Studio (AI-Powered)](https://firebase.google.com/)
-* **Weather API:** [Open-Meteo API](https://open-meteo.com/)
+* **Weather API:** [WeatherAPI.com](WeatherAPI.com)
 
 ---
 
